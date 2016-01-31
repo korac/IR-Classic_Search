@@ -1,0 +1,62 @@
+<html>
+<head>
+	<title>Search engine for children</title>
+	<link rel="stylesheet" type="text/css" href="./bower_components/bootstrap/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="./css/style.css">
+</head>
+<body ng-app="toySearch" ng-controller="toyCont">
+
+	<div class="jumbotron">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-4">
+					<h1>ToySearch</h1>
+				</div>
+				<div class="col-md-8" id="formDiv">
+
+					<form role="form" ng-submit="search()">
+						<div class="form-group">
+							<div class="col-md-10 inputDiv">
+								<input type="text" class="form-control" id="query" ng-model="searchTerm">
+							</div>
+							<div class="col-md-2 buttonDiv">
+								<button type="submit" class="btn btn-info btn-lg"><span class="glyphicon glyphicon-search"></span></button>
+							</div>							
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="container">
+		<div class="results">
+			<!--If there are no results-->
+			<div class="no-toys" ng-hide="toys.length">No toys :((</div>
+
+			<div class="row">
+				<div class="toys col-md-4" ng-repeat="toy in toys" ng-cloak><!--JOS NGCLOAK-->
+					<h4>
+						<a ng-href="{{toy.url}}" target="_blank">{{toy.title}}</a>
+					</h4>
+					<a ng-href="{{toy.url}}" target="_blank"><img ng-src="{{toy.image}}" class="img-thumbnail"></a>
+					<p>Store:  <a ng-href="https://www.{{toy.rid}}.nl" target="_blank">{{toy.rid}}</a></p>
+					<p>Price: <strong>{{toy.price | num | currency}}</strong></p>
+				</div>
+			</div>
+			
+		</div>
+
+		<div class="more-toys" ng-hide="allResults" ng-cloak> <!--JOS NGCLOAK-->
+			<button ng-click="loadMore()" class="btn btn-primary btn-block">More toys? :)</button>
+		</div>
+	</div>
+
+
+<script type="text/javascript" src="./bower_components/angular/angular.min.js"></script>
+<script type="text/javascript" src="./bower_components/elasticsearch/elasticsearch.angular.js"></script>
+<script type="text/javascript" src="./js/app.js"></script>
+<script type="text/javascript" src="./js/controller.js"></script>
+<script type="text/javascript" src="./js/service.js"></script>
+</body>
+</html>
